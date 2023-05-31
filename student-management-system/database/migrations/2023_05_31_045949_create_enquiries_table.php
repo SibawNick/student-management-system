@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('mobile');
             $table->string('email')->nullable();
             $table->foreignId('course_id')->constrained();
+            $table->string('lead');
             $table->enum('status', ['followup', 'confirmed', 'canceled'])->default('followup');
             $table->foreignId('company_id')->constrained();
             $table->timestamps();
