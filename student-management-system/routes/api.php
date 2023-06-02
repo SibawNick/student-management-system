@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CompanyController;
+use App\Http\Controllers\Api\StudentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use PharIo\Manifest\AuthorCollection;
@@ -26,6 +27,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('company', CompanyController::class);
 });
 
+
+Route::apiResource('student', StudentController::class);
 
 
 // Global
