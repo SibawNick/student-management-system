@@ -31,7 +31,7 @@ class CompanyController extends Controller
         $company->reg_no = $request->reg_no;
 
         // For Logo Upload
-        uploadImage($request,$company,'logo');
+        uploadImage($request, $company, 'logo');
         $company->save();
         return response()->json([
             'success' => true,

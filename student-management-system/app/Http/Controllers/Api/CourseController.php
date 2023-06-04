@@ -34,18 +34,6 @@ class CourseController extends Controller
             'status' => 201,
             'message' => 'course saved successfully'
         ], 201);
-
-        // $validatedData = $request->validate([
-        //     'name' => 'required|string',
-        //     'duration' => 'required|integer',
-        //     'fee' => 'required|numeric',
-        //     'status' => 'required|in:active,inactive',
-        //     'company_id' => 'required|exists:companies,id',
-        // ]);
-
-        // $course = Course::create($validatedData);
-
-        // return response()->json($course, 201);
     }
 
     /**
