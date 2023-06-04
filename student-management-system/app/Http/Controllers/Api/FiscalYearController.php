@@ -1,20 +1,20 @@
 <?php
 
-namespace App\Http\Controllers\api;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Course;
+use App\Models\FiscalYear;
 use Illuminate\Http\Request;
 
-class CourseController extends Controller
+class FiscalYearController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $course = Course::all();
-        return response()->json($course);
+        $fiscal_year = FiscalYear::all();
+        return response()->json($fiscal_year);
     }
 
     /**
@@ -22,17 +22,13 @@ class CourseController extends Controller
      */
     public function store(Request $request)
     {
-        $course = new Course();
-        $course->name = $request->name;
-        $course->duration = $request->duration;
-        $course->fee = $request->fee;
-        $course->status = $request->status;
-        $course->company_id = $request->company_id;
-        $course->save();
+        $fiscal_year = new FiscalYear();
+        $fiscal_year->year = $request->year;
+        $fiscal_year->save();
         return response()->json([
             'success' => true,
             'status' => 201,
-            'message' => 'Course saved successfully'
+            'message' => 'Fiscal year saved successfully'
         ], 201);
     }
 
@@ -41,10 +37,10 @@ class CourseController extends Controller
      */
     public function show(string $id)
     {
-        $course = Course::find($id);
+        $fiscal_year = FiscalYear::find($id);
         return response()->json([
             'success' => true,
-            'course' => $course
+            'fiscal_year' => $fiscal_year
         ]);
     }
 
@@ -53,16 +49,13 @@ class CourseController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $course = Course::find($id);
-        $course->name = $request->name;
-        $course->duration = $request->duration;
-        $course->fee = $request->fee;
-        $course->status = $request->status;
-        $course->update();
+        $fiscal_year = FiscalYear::find($id);
+        $fiscal_year->year = $request->year;
+        $fiscal_year->update();
         return response()->json([
             'success' => true,
             'status' => 201,
-            'message' => 'Course updated successfully'
+            'message' => 'Fiscal year updated successfully'
         ], 201);
     }
 
@@ -71,11 +64,11 @@ class CourseController extends Controller
      */
     public function destroy(string $id)
     {
-        $course = Course::find($id);
-        $course->delete();
+        $fiscal_year = FiscalYear::find($id);
+        $fiscal_year->delete();
         return response()->json([
             'success' => true,
-            'message' => 'Course deleted successfully'
+            'message' => 'Fiscal year deleted successfully'
         ]);
     }
 }
