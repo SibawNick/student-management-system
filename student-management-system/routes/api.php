@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CompanyController;
 use App\Http\Controllers\api\CourseController;
+use App\Http\Controllers\Api\FiscalYearController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use PharIo\Manifest\AuthorCollection;
@@ -26,6 +27,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('company', CompanyController::class);
     Route::apiResource('courses', CourseController::class);
+    Route::apiResource('fiscal_years', FiscalYearController::class);
 });
 
 // Global
