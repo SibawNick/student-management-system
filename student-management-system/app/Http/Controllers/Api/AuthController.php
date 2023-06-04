@@ -15,7 +15,6 @@ class AuthController extends Controller
     public function register(Request $request)
     {
 
-        // return "hello";
         $rules = array(
             'name' => 'required',
             'password' => 'required',
