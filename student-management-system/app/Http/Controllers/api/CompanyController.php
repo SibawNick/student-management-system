@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\api;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\CompanyResource;
 use App\Models\Company;
 use Illuminate\Http\Request;
 
@@ -14,16 +13,8 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        $companies = Company::all();
-        return  CompanyResource::collection($companies);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        $company = Company::all();
+        return response()->json($company);
     }
 
     /**
@@ -32,13 +23,21 @@ class CompanyController extends Controller
     public function store(Request $request)
     {
         $company = new Company();
-        $company->id = $request->id;
         $company->name = $request->name;
         $company->city = $request->city;
         $company->street = $request->street;
-        $company->contact = $request->contact;
-        $company->name = $request->name;
-        $company->name = $request->name;
+        $company->phone = $request->phone;
+        $company->email = $request->email;
+        $company->reg_no = $request->reg_no;
+
+        // For Logo Upload
+        uploadImage($request,$company,'logo');
+        $company->save();
+        return response()->json([
+            'success' => true,
+            'status' => 201,
+            'message' => 'Company saved successfully'
+        ], 201);
     }
 
     /**
@@ -46,15 +45,11 @@ class CompanyController extends Controller
      */
     public function show(string $id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
+        $company = Company::find($id);
+        return response()->json([
+            'success' => true,
+            'company' => $company
+        ]);
     }
 
     /**
@@ -62,7 +57,22 @@ class CompanyController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $company =  Company::find($id);
+        $company->name = $request->name;
+        $company->city = $request->city;
+        $company->street = $request->street;
+        $company->phone = $request->phone;
+        $company->email = $request->email;
+        $company->reg_no = $request->reg_no;
+
+        // For Logo Upload
+        uploadImage($request, $company, 'logo');
+        $company->update();
+        return response()->json([
+            'success' => true,
+            'status' => 201,
+            'message' => 'Company updated successfully'
+        ], 201);
     }
 
     /**
@@ -70,6 +80,11 @@ class CompanyController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $company = Company::find($id);
+        $company->delete();
+        return response()->json([
+            'success' => true,
+            'message' => 'Company deleted successfully'
+        ]);
     }
 }
