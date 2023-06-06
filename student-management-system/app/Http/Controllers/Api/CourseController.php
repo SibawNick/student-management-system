@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Course;
 use Illuminate\Http\Request;
 
 class CourseController extends Controller
@@ -12,7 +13,8 @@ class CourseController extends Controller
      */
     public function index()
     {
-        //
+        $courses = Course::all();
+        return response()->json($courses);
     }
 
     /**
@@ -20,7 +22,19 @@ class CourseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $courses = new Course();
+        $courses->name = $request->name;
+        $courses->duration = $request->duration;
+        $courses->fee = $request->fee;
+        $courses->status = $request->status;
+        $courses->company_id = $request->company_id;
+
+        $courses->save();
+        return response()->json([
+            'success' => true,
+            'status' => 201,
+            'message' => 'Course created successfully',
+        ], 201);
     }
 
     /**
@@ -28,7 +42,12 @@ class CourseController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $courses = Course::find($id);
+        return response()->json([
+            'success' => true,
+            'courses' => $courses,
+        ]);
+
     }
 
     /**
@@ -36,7 +55,19 @@ class CourseController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $courses = Course::find($id);
+        $courses->name = $request->name;
+        $courses->duration = $request->duration;
+        $courses->fee = $request->fee;
+        $courses->status = $request->status;
+        $courses->company_id = $request->company_id;
+
+        $courses->update();
+        return response()->json([
+            'success' => true,
+            'status' => 201,
+            'message' => 'Course updated successfully',
+        ], 201);
     }
 
     /**
@@ -44,6 +75,11 @@ class CourseController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $courses = Course::find($id);
+        $courses->delete();
+        return response()->json([
+            'success' => true,
+            'courses' => 'Course deleted successfully',
+        ]);
     }
 }
